@@ -1,0 +1,23 @@
+.task-card-container {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin: 10px;
+    background-color: #f9f9f9;
+}
+
+.task-card-container > :nth-child(2) {
+    align-self: center; 
+}
+
+.task-card-container > :last-child {
+    align-self: end; 
+}
+
+.task-card-container p {
+    margin: 0;
+    padding: 5px 0;
+}
