@@ -5,7 +5,7 @@ const initialTaskList = [
   {
     id: 1,
     title: "Write a blog post",
-    status: "in progress",
+    status: "In Progress",
     priority: "High",
     description: "Write a blog post about the upcoming launch",
     dueDate: "2023-13-01",
@@ -13,7 +13,7 @@ const initialTaskList = [
   },
   {
     id: 2,
-    title: "Make promotional video for the app",
+    title: "Make a promotional video for the app",
     status: "To Do",
     priority: "Medium",
     description: "Visit the dentist for a checkup",
@@ -50,13 +50,18 @@ const initialTaskList = [
 ];
 
 function App() {
-  /* return initialTaskList.map((t) => <TaskCard task={t} key={t.id} />); */
   return (
+    <>
+    <nav>
+      <h3>Task Board</h3>
+      <span>Current User</span>
+      </nav>
     <div className="container">
-      <TasksBoard type="To Do" tasksList={initialTaskList}></TasksBoard>
-      <TasksBoard type="In Progress" tasksList={initialTaskList}></TasksBoard>
-      <TasksBoard type="Done" tasksList={initialTaskList}></TasksBoard>
+      <TasksBoard type="To Do" tasksList={initialTaskList}/>
+      <TasksBoard type="In Progress" tasksList={initialTaskList}/>
+      <TasksBoard type="Done" tasksList={initialTaskList}/>
     </div>
+    </>
   );
 }
 
