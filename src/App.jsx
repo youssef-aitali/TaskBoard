@@ -1,5 +1,7 @@
 import TasksBoard from "./components/TasksBoard";
 import "./App.css";
+import { useState } from "react";
+import NewTaskForm from "./components/NewTaskForm";
 
 const initialTaskList = [
   {
@@ -32,11 +34,11 @@ const initialTaskList = [
   {
     id: 4,
     title: "Prepare for prelaunch meeting",
-    status: "in progress",
+    status: "In Progress",
     priority: "High",
     description: "Prepare for the prelaunch meeting with the team",
     dueDate: "2023-05-01",
-    assisgnee: "John Doe",
+    assisgnee: "Lucy Gibson",
   },
   {
     id: 5,
@@ -50,17 +52,28 @@ const initialTaskList = [
 ];
 
 function App() {
+  const [newTaskDialog, setNewTaskDialog] = useState(false);
+
+  const openAddTaskDialog = () => {
+    setNewTaskDialog(true);
+  };
+
   return (
     <>
-    <nav>
-      <h3>Task Board</h3>
-      <span>Current User</span>
+      <nav>
+        <h3>Task Board</h3>
+        <span>Current User</span>
       </nav>
-    <div className="container">
-      <TasksBoard type="To Do" tasksList={initialTaskList}/>
-      <TasksBoard type="In Progress" tasksList={initialTaskList}/>
-      <TasksBoard type="Done" tasksList={initialTaskList}/>
-    </div>
+      <div className="container">
+        <TasksBoard
+          type="To Do"
+          tasksList={initialTaskList}
+          openNewTaskForm={openAddTaskDialog}
+        />
+        <TasksBoard type="In Progress" tasksList={initialTaskList} />
+        <TasksBoard type="Done" tasksList={initialTaskList} />
+      </div>
+      {newTaskDialog && <NewTaskForm />}
     </>
   );
 }
