@@ -1,9 +1,11 @@
-import TasksBoard from "./components/TasksBoard";
-import "./App.css";
 import { useState } from "react";
+
+import TasksBoard from "./components/TasksBoard";
 import NewTaskForm from "./components/NewTaskForm";
 
-const initialTaskList = [
+import "./App.css";
+
+const initialTasksList = [
   {
     id: 1,
     title: "Write a blog post",
@@ -52,6 +54,8 @@ const initialTaskList = [
 ];
 
 function App() {
+
+  const [tasksList, setTasksList] = useState(initialTasksList);
   const [newTaskDialog, setNewTaskDialog] = useState(false);
 
   const openAddTaskDialog = () => {
@@ -67,11 +71,11 @@ function App() {
       <div className="container">
         <TasksBoard
           type="To Do"
-          tasksList={initialTaskList}
+          tasksList={tasksList}
           openNewTaskForm={openAddTaskDialog}
         />
-        <TasksBoard type="In Progress" tasksList={initialTaskList} />
-        <TasksBoard type="Done" tasksList={initialTaskList} />
+        <TasksBoard type="In Progress" tasksList={tasksList} />
+        <TasksBoard type="Done" tasksList={tasksList} />
       </div>
       {newTaskDialog && <NewTaskForm />}
     </>
