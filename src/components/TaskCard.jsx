@@ -3,7 +3,6 @@ import { useState } from "react";
 import "./TaskCard.css";
 
 const TaskCard = ({ task }) => {
-
   return (
     <div className="task-card-container">
       <div>
@@ -13,10 +12,13 @@ const TaskCard = ({ task }) => {
       <h3>{task.title}</h3>
       <p>{task.description}</p>
       <p>{task.priority}</p>
-      <p>{task.dueDate}</p>
+      <p>
+        {"Deadline: "}
+        <strong>{task.dueDate}</strong>
+      </p>
       <p>
         {"Assigned to "}
-        <strong>{task.assisgnee}</strong>
+        <strong>{task.assignee}</strong>
       </p>
     </div>
   );

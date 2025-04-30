@@ -1,15 +1,16 @@
 import { useState } from "react";
 import "./NewTaskForm.css";
 
-const NewTaskForm = () => {
+const initialFormData = {
+  title: "",
+  description: "",
+  priority: "",
+  dueDate: "2025-04-24",
+  assignee: "",
+};
 
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    priority: '', // for date of birth
-    dueTime: '2025-04-24',
-    assignee: '',
-  });
+const NewTaskForm = ({ onAddNewTask }) => {
+  const [formData, setFormData] = useState(initialFormData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,34 +20,78 @@ const NewTaskForm = () => {
     }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onAddNewTask({
+      ...formData,
+    });
+    setFormData(initialFormData);
+  };
+
   return (
     <div className="newTaskForm-container">
-      <form onSubmit={()=> alert("Saving...")}>
+      <form onSubmit={handleSubmit}>
         <>
-          <label htmlFor="fname">Title</label>
-          <input type="text" id="fname" name="fname" value={formData.title} onChange={handleChange} required/>
+          <label htmlFor="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            required
+          />
         </>
         <>
-          <label htmlFor="lname">Description</label>
-          <textarea type="text" id="lname" name="lname" value={formData.description} onChange={handleChange} required />
+          <label htmlFor="description">Description</label>
+          <textarea
+            type="text"
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+            style={{ resize: "none" }}
+          />
         </>
         <>
           <label htmlFor="priority">Priority</label>
-          <select id="prioriy" value={formData.priority} onChange={handleChange} required>
+          <select
+            id="priority"
+            name="priority"
+            value={formData.priority}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select a priority</option>
             <option value="High">High</option>
             <option value="Medium">Medium</option>
             <option value="Low">Low</option>
           </select>
         </>
         <>
-          <label htmlFor="lname">Due Time</label>
-          <input type="date" id="lname" name="lname" value={formData.dueTime} onChange={handleChange} required />
+          <label htmlFor="dueDate">Due Date</label>
+          <input
+            type="date"
+            id="dueDate"
+            name="dueDate"
+            value={formData.dueDate}
+            onChange={handleChange}
+            required
+          />
         </>
         <>
-          <label htmlFor="lname">Assign To</label>
-          <select id="prioriy" value={formData.assignee} onChange={handleChange} required>
+          <label htmlFor="assignee">Assign To</label>
+          <select
+            id="assignee"
+            name="assignee"
+            value={formData.assignee}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select an assignee</option>
             <option value="John Doe">John Doe</option>
-            <option value="Kate Smith">Medium</option>
+            <option value="Kate Smith">Kate Smith</option>
             <option value="Sam Wilson">Sam Wilson</option>
             <option value="Lucy Gibson">Lucy Gibson</option>
             <option value="Samantha Brown">Samantha Brown</option>
