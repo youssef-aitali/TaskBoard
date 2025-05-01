@@ -131,15 +131,6 @@ function App() {
     setNewTaskDialog(false);
   };
 
-  /* const handleEditTask = (taskId, taskType, newTask) => {
-    setTasksList({
-      ...tasksList,
-      [taskType]: tasksList[taskType].map((t) =>
-        t.id === taskId ? newTask : t
-      ),
-    });
-  };
- */
   const handleDeleteTask = (taskId, taskType) => {
     setTasksList({
       ...tasksList,
