@@ -22,7 +22,7 @@ const initialTasksList = {
       title: "Write a blog post",
       priority: "High",
       description: "Write a blog post about the upcoming launch",
-      dueDate: "2023-13-01",
+      dueDate: "2023-01-13",
       assignee: "John Doe",
     },
     {
@@ -105,24 +105,56 @@ const initialTasksList = {
 function App() {
   const [tasksList, setTasksList] = useState(initialTasksList);
   const [newTaskDialog, setNewTaskDialog] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [selectedType, setSelectedType] = useState("");
 
   const openAddTaskDialog = () => {
     setNewTaskDialog(true);
   };
 
   const handleAddNewTask = (newTask) => {
+    !selectedTask
+      ? setTasksList({
+          ...tasksList,
+          ["To Do"]: [
+            ...tasksList["To Do"],
+            { ...newTask, id: tasksList["To Do"].length++ },
+          ],
+        })
+      : setTasksList({
+          ...tasksList,
+          [selectedType]: tasksList[selectedType].map((t) =>
+            t.id === newTask.id ? newTask : t
+          ),
+        });
+
+    setNewTaskDialog(false);
+  };
+
+  /* const handleEditTask = (taskId, taskType, newTask) => {
     setTasksList({
       ...tasksList,
-      ["To Do"]: [
-        ...tasksList["To Do"],
-        { ...newTask, id: tasksList["To Do"].length++ },
-      ],
+      [taskType]: tasksList[taskType].map((t) =>
+        t.id === taskId ? newTask : t
+      ),
     });
-    console.log("fired");
-    console.log({
+  };
+ */
+  const handleDeleteTask = (taskId, taskType) => {
+    setTasksList({
       ...tasksList,
-      ["To Do"]: [...tasksList["To Do"], newTask],
+      [taskType]: tasksList[taskType].filter((t) => t.id !== taskId),
     });
+  };
+
+  const handleMoveTask = (taskId, sourceType, targetType) => {
+    const movedTask = tasksList[sourceType].find((t) => t.id === taskId);
+    const newTasksList = {
+      ...tasksList,
+      [sourceType]: tasksList[sourceType].filter((t) => t.id !== taskId),
+      [targetType]: [...tasksList[targetType], movedTask],
+    };
+    setTasksList(newTasksList);
   };
 
   return (
@@ -143,11 +175,37 @@ function App() {
           type="To Do"
           tasksList={tasksList}
           openNewTaskForm={openAddTaskDialog}
+          onDeleteTask={handleDeleteTask}
+          onMoveTask={handleMoveTask}
+          onEditTaskSelect={setSelectedTask}
+          onEditTypeSelect={setSelectedType}
         />
-        <TasksBoard type="In Progress" tasksList={tasksList} />
-        <TasksBoard type="Done" tasksList={tasksList} />
+        <TasksBoard
+          type="In Progress"
+          tasksList={tasksList}
+          onDeleteTask={handleDeleteTask}
+          onMoveTask={handleMoveTask}
+          onEditTaskSelect={setSelectedTask}
+          openNewTaskForm={openAddTaskDialog}
+          onEditTypeSelect={setSelectedType}
+        />
+        <TasksBoard
+          type="Done"
+          tasksList={tasksList}
+          onDeleteTask={handleDeleteTask}
+          onMoveTask={handleMoveTask}
+          onEditTaskSelect={setSelectedTask}
+          openNewTaskForm={openAddTaskDialog}
+          onEditTypeSelect={setSelectedType}
+        />
       </div>
-      {newTaskDialog && <NewTaskForm onAddNewTask={handleAddNewTask} />}
+      {newTaskDialog && (
+        <NewTaskForm
+          currentTask={selectedTask}
+          onAddNewTask={handleAddNewTask}
+          onCloseTaskDialog={setNewTaskDialog}
+        />
+      )}
     </>
   );
 }

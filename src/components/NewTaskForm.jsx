@@ -9,8 +9,10 @@ const initialFormData = {
   assignee: "",
 };
 
-const NewTaskForm = ({ onAddNewTask }) => {
-  const [formData, setFormData] = useState(initialFormData);
+const NewTaskForm = ({ currentTask, onAddNewTask, onCloseTaskDialog }) => {
+  const [formData, setFormData] = useState(
+    !currentTask ? initialFormData : currentTask
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -98,6 +100,11 @@ const NewTaskForm = ({ onAddNewTask }) => {
           </select>
         </>
         <input type="submit" value="Save" />
+        <input
+          type="button"
+          value="Cancel"
+          onClick={() => onCloseTaskDialog(false)}
+        />
       </form>
     </div>
   );
