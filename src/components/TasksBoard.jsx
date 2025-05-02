@@ -1,14 +1,11 @@
+import { useContext } from "react";
 import TaskCard from "./TaskCard";
+import { TasksListContext } from "../Contexts/TasksContext";
 import "./TasksBoard.css";
 
-const TasksBoard = ({
-  status,
-  tasksList,
-  onDeleteTask,
-  openNewTaskForm,
-  onOpenEditTaskForm,
-  onEditTask,
-}) => {
+const TasksBoard = ({ status, openNewTaskForm, onOpenEditTaskForm }) => {
+  const tasksList = useContext(TasksListContext);
+
   return (
     <div className="tasks-board-container">
       <h2>{status}</h2>
@@ -18,9 +15,7 @@ const TasksBoard = ({
           <TaskCard
             task={t}
             key={t.id}
-            onDeleteTask={onDeleteTask}
             onOpenEditTaskForm={onOpenEditTaskForm}
-            onEditTask={onEditTask}
           />
         ))}
       {status === "To Do" && (

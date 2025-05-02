@@ -7,7 +7,8 @@ const tasksReducer = (tasks, action) => {
       return tasks.map((t) => (t.id === action.task.id ? action.task : t));
     case "task_deleted":
       return tasks.filter((t) => t.id !== action.taskId);
-    case "task_moved":
+    default:
+      return tasks;
   }
 };
 
