@@ -7,9 +7,15 @@ const initialFormData = {
   priority: "",
   dueDate: "2025-04-24",
   assignee: "",
+  status: "To Do",
 };
 
-const NewTaskForm = ({ currentTask, onAddNewTask, onCloseTaskDialog }) => {
+const NewTaskForm = ({
+  currentTask,
+  onAddNewTask,
+  onEditTask,
+  onCloseTaskDialog,
+}) => {
   const [formData, setFormData] = useState(
     !currentTask ? initialFormData : currentTask
   );
@@ -24,9 +30,11 @@ const NewTaskForm = ({ currentTask, onAddNewTask, onCloseTaskDialog }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddNewTask({
-      ...formData,
-    });
+    !currentTask
+      ? onAddNewTask({
+          ...formData,
+        })
+      : onEditTask(formData);
     setFormData(initialFormData);
   };
 

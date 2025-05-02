@@ -1,53 +1,39 @@
 import "./TaskCard.css";
 
-const TaskCard = ({
-  task,
-  type,
-  onDeleteTask,
-  onMoveTask,
-  openNewTaskForm,
-  onEditTaskSelect,
-  onEditTypeSelect,
-}) => {
-  const handleMoveLeftTask = (taskId) => {
-    if (type === "In Progress") {
-      onMoveTask(taskId, type, "To Do");
+const TaskCard = ({ task, onDeleteTask, onOpenEditTaskForm, onEditTask }) => {
+  const handleMoveLeftTask = (task) => {
+    if (task.status === "In Progress") {
+      onEditTask({ ...task, status: "To Do" });
     } else {
-      onMoveTask(taskId, type, "In Progress");
+      onEditTask({ ...task, status: "In Progress" });
     }
   };
 
-  const handleMoveRightTask = (taskId) => {
-    if (type === "In Progress") {
-      onMoveTask(taskId, type, "Done");
+  const handleMoveRightTask = (task) => {
+    if (task.status === "In Progress") {
+      onEditTask({ ...task, status: "Done" });
     } else {
-      onMoveTask(taskId, type, "In Progress");
+      onEditTask({ ...task, status: "In Progress" });
     }
-  };
-
-  const handleOpenTaskForm = (currentTask, currentType) => {
-    onEditTaskSelect(currentTask);
-    onEditTypeSelect(currentType);
-    openNewTaskForm();
   };
 
   return (
     <div className="task-card-container">
       <div className="task-card-actions-container">
         <div>
-          <button onClick={() => handleOpenTaskForm(task, type)}>Edit</button>
-          <button onClick={() => onDeleteTask(task.id, type)}>Delete</button>
+          <button onClick={() => onOpenEditTaskForm(task.id)}>Edit</button>
+          <button onClick={() => onDeleteTask(task.id)}>Delete</button>
         </div>
         <div>
           <button
-            onClick={() => handleMoveLeftTask(task.id)}
-            disabled={type === "To Do"}
+            onClick={() => handleMoveLeftTask(task)}
+            disabled={task.status === "To Do"}
           >
             {"<"}
           </button>
           <button
-            onClick={() => handleMoveRightTask(task.id)}
-            disabled={type === "Done"}
+            onClick={() => handleMoveRightTask(task)}
+            disabled={task.status === "Done"}
           >
             {">"}
           </button>
