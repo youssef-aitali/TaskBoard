@@ -6,39 +6,37 @@ const TaskCard = ({ task, onOpenEditTaskForm }) => {
   const dispatch = useContext(TasksDipatchContext);
 
   const handleMoveLeftTask = (task) => {
-    if (task.status === "In Progress") {
-      dispatch({
-        type: "task_edited",
-        task: { ...task, status: "To Do" },
-      });
-    } else {
-      dispatch({
-        type: "task_edited",
-        task: { ...task, status: "In Progress" },
-      });
-    }
+    dispatch({
+      type: "task_edited",
+      task: {
+        ...task,
+        status: task.status === "In Progress" ? "To Do" : "In Progress",
+      },
+    });
   };
 
   const handleMoveRightTask = (task) => {
-    if (task.status === "In Progress") {
-      dispatch({
-        type: "task_edited",
-        task: { ...task, status: "Done" },
-      });
-    } else {
-      dispatch({
-        type: "task_edited",
-        task: { ...task, status: "In Progress" },
-      });
-    }
+    dispatch({
+      type: "task_edited",
+      task: {
+        ...task,
+        status: task.status === "In Progress" ? "Done" : "In Progress",
+      },
+    });
   };
 
   return (
     <div className="task-card-container">
       <div className="task-card-actions-container">
         <div>
-          <button onClick={() => onOpenEditTaskForm(task.id)}>Edit</button>
           <button
+            className="bg-sky-500 hover:bg-sky-700"
+            onClick={() => onOpenEditTaskForm(task.id)}
+          >
+            Edit
+          </button>
+          <button
+            className="bg-sky-500 hover:bg-sky-700"
             onClick={() =>
               dispatch({
                 type: "task_deleted",
@@ -51,12 +49,14 @@ const TaskCard = ({ task, onOpenEditTaskForm }) => {
         </div>
         <div>
           <button
+            className="bg-sky-500 hover:bg-sky-700"
             onClick={() => handleMoveLeftTask(task)}
             disabled={task.status === "To Do"}
           >
             {"<"}
           </button>
           <button
+            className="bg-sky-500 hover:bg-sky-700"
             onClick={() => handleMoveRightTask(task)}
             disabled={task.status === "Done"}
           >

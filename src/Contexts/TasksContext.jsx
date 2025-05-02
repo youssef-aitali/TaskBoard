@@ -2,21 +2,6 @@ import { createContext, useReducer } from "react";
 
 import tasksReducer from "../reducers/tasksReducer";
 
-export const TasksListContext = createContext(null);
-export const TasksDipatchContext = createContext(null);
-
-export const TasksProvider = ({ children }) => {
-  const [tasksList, dispatch] = useReducer(tasksReducer, initialTasksList);
-
-  return (
-    <TasksListContext.Provider value={tasksList}>
-      <TasksDipatchContext.Provider value={dispatch}>
-        {children}
-      </TasksDipatchContext.Provider>
-    </TasksListContext.Provider>
-  );
-};
-
 const initialTasksList = [
   {
     id: 1,
@@ -64,3 +49,18 @@ const initialTasksList = [
     assignee: "Samantha Brown",
   },
 ];
+
+export const TasksListContext = createContext(null);
+export const TasksDipatchContext = createContext(null);
+
+export const TasksProvider = ({ children }) => {
+  const [tasksList, dispatch] = useReducer(tasksReducer, initialTasksList);
+
+  return (
+    <TasksListContext.Provider value={tasksList}>
+      <TasksDipatchContext.Provider value={dispatch}>
+        {children}
+      </TasksDipatchContext.Provider>
+    </TasksListContext.Provider>
+  );
+};

@@ -1,4 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import {
+  TasksDipatchContext,
+  TasksListContext,
+} from "../Contexts/TasksContext";
+
 import "./NewTaskForm.css";
 
 const initialFormData = {
@@ -10,12 +15,12 @@ const initialFormData = {
   status: "To Do",
 };
 
-const NewTaskForm = ({
-  currentTask,
-  onAddNewTask,
-  onEditTask,
-  onCloseTaskDialog,
-}) => {
+const NewTaskForm = ({ selectedTaskId, onCloseTaskDialog }) => {
+  const tasksList = useContext(TasksListContext);
+  const dispatch = useContext(TasksDipatchContext);
+
+  const currentTask = tasksList.find((t) => t.id === selectedTaskId);
+
   const [formData, setFormData] = useState(
     !currentTask ? initialFormData : currentTask
   );
@@ -30,12 +35,16 @@ const NewTaskForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    !currentTask
-      ? onAddNewTask({
-          ...formData,
-        })
-      : onEditTask(formData);
+
+    dispatch({
+      type: !currentTask ? "task_added" : "task_edited",
+      task: {
+        ...formData,
+      },
+    });
+
     setFormData(initialFormData);
+    onCloseTaskDialog(false);
   };
 
   return (
