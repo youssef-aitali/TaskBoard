@@ -2,9 +2,9 @@ import { useState, useReducer } from "react";
 
 import TasksBoard from "./components/TasksBoard";
 import NewTaskForm from "./components/NewTaskForm";
+import tasksReducer from "./reducers/tasksReducer";
 
 import "./App.css";
-import tasksReducer from "./reducers/tasksReducer";
 
 const initialTasksList = [
   {
@@ -55,7 +55,6 @@ const initialTasksList = [
 ];
 
 function App() {
-  /* const [tasksList, setTasksList] = useState(initialTasksList); */
   const [tasksList, dispatch] = useReducer(tasksReducer, initialTasksList);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const [newTaskDialog, setNewTaskDialog] = useState(false);
@@ -90,16 +89,6 @@ function App() {
       type: "task_deleted",
       taskId: taskId,
     });
-  };
-
-  const handleMoveTask = (taskId, sourceType, targetType) => {
-    const movedTask = tasksList[sourceType].find((t) => t.id === taskId);
-    const newTasksList = {
-      ...tasksList,
-      [sourceType]: tasksList[sourceType].filter((t) => t.id !== taskId),
-      [targetType]: [...tasksList[targetType], movedTask],
-    };
-    setTasksList(newTasksList);
   };
 
   return (
