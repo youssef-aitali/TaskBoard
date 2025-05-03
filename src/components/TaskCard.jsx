@@ -1,9 +1,13 @@
-import { useContext } from "react";
-import { TasksDipatchContext } from "../Contexts/TasksContext";
+import { useTasks } from "../Contexts/TasksContext";
 import "./TaskCard.css";
 
-const TaskCard = ({ task, onOpenEditTaskForm }) => {
-  const dispatch = useContext(TasksDipatchContext);
+const TaskCard = ({ task }) => {
+  const { setTaskToEditId, dispatch, setTaskDialogOpen } = useTasks();
+
+  const openEditTaskDialog = (taskId) => {
+    setTaskToEditId(taskId);
+    setTaskDialogOpen(true);
+  };
 
   const handleMoveLeftTask = (task) => {
     dispatch({
@@ -26,17 +30,17 @@ const TaskCard = ({ task, onOpenEditTaskForm }) => {
   };
 
   return (
-    <div className="task-card-container">
-      <div className="task-card-actions-container">
+    <div className="bg-white shadow-lg p-4 my-2 w-full">
+      <div className="task-card-actions-container mb-4">
         <div>
           <button
-            className="bg-sky-500 hover:bg-sky-700"
-            onClick={() => onOpenEditTaskForm(task.id)}
+            className="bg-blue-500 hover:bg-blue-400 text-white text-sm px-2 py-2 rounded-md cursor-pointer font-medium mr-1"
+            onClick={() => openEditTaskDialog(task.id)}
           >
             Edit
           </button>
           <button
-            className="bg-sky-500 hover:bg-sky-700"
+            className="bg-blue-500 hover:bg-blue-400 text-white text-sm px-2 py-2 rounded-md cursor-pointer font-medium ml-1"
             onClick={() =>
               dispatch({
                 type: "task_deleted",
@@ -49,14 +53,14 @@ const TaskCard = ({ task, onOpenEditTaskForm }) => {
         </div>
         <div>
           <button
-            className="bg-sky-500 hover:bg-sky-700"
+            className="bg-blue-500 hover:bg-blue-400 text-white text-sm px-2 py-1 cursor-pointer font-medium mr-1"
             onClick={() => handleMoveLeftTask(task)}
             disabled={task.status === "To Do"}
           >
             {"<"}
           </button>
           <button
-            className="bg-sky-500 hover:bg-sky-700"
+            className="bg-blue-500 hover:bg-blue-400 text-white text-sm px-2 py-1 cursor-pointer font-medium ml-1"
             onClick={() => handleMoveRightTask(task)}
             disabled={task.status === "Done"}
           >

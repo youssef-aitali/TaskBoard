@@ -1,8 +1,5 @@
-import { useState, useContext } from "react";
-import {
-  TasksDipatchContext,
-  TasksListContext,
-} from "../Contexts/TasksContext";
+import { useState } from "react";
+import { useTasks } from "../Contexts/TasksContext";
 
 import "./NewTaskForm.css";
 
@@ -15,11 +12,16 @@ const initialFormData = {
   status: "To Do",
 };
 
-const NewTaskForm = ({ selectedTaskId, onCloseTaskDialog }) => {
-  const tasksList = useContext(TasksListContext);
-  const dispatch = useContext(TasksDipatchContext);
+const NewTaskForm = () => {
+  const {
+    tasksList,
+    dispatch,
+    taskToEditId,
+    setTaskToEditId,
+    setTaskDialogOpen,
+  } = useTasks();
 
-  const currentTask = tasksList.find((t) => t.id === selectedTaskId);
+  const currentTask = tasksList.find((t) => t.id === taskToEditId);
 
   const [formData, setFormData] = useState(
     !currentTask ? initialFormData : currentTask
@@ -44,11 +46,12 @@ const NewTaskForm = ({ selectedTaskId, onCloseTaskDialog }) => {
     });
 
     setFormData(initialFormData);
-    onCloseTaskDialog(false);
+    setTaskToEditId(null);
+    setTaskDialogOpen(false);
   };
 
   return (
-    <div className="newTaskForm-container">
+    <div className="newTaskForm-container w-70">
       <form onSubmit={handleSubmit}>
         <>
           <label htmlFor="title">Title</label>
@@ -120,7 +123,7 @@ const NewTaskForm = ({ selectedTaskId, onCloseTaskDialog }) => {
         <input
           type="button"
           value="Cancel"
-          onClick={() => onCloseTaskDialog(false)}
+          onClick={() => setTaskDialogOpen(false)}
         />
       </form>
     </div>
