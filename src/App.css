@@ -3,10 +3,10 @@ nav {
   justify-content: space-between;
   align-items: center;
   background-color: bisque;
-  padding: 10px;
+  padding: 0 10px;
 }
 
-.container{
+.container {
   display: flex;
   flex-direction: row;
   justify-content: center;
