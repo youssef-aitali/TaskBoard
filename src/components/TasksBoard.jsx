@@ -16,7 +16,7 @@ const TasksBoard = ({ status }) => {
       {status === "To Do" && (
         <button
           rol="button"
-          className="bg-blue-500 hover:bg-blue-400 text-white text-sm px-4 py-2 rounded-full cursor-pointer font-medium shadow-lg shadow-blue-500/50"
+          className="bg-blue-500 hover:bg-blue-400 text-white text-sm px-4 py-2 mt-2 rounded-full cursor-pointer font-medium shadow-lg shadow-blue-500/50"
           onClick={() => setTaskDialogOpen(true)}
         >
           New task

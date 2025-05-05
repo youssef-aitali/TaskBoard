@@ -51,11 +51,15 @@ const NewTaskForm = () => {
   };
 
   return (
-    <div className="newTaskForm-container w-70">
-      <form onSubmit={handleSubmit}>
+    <div className="fixed top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-100 border border-gray-300 rounded-lg">
+      <form
+        className="flex flex-col bg-white shadow-xl p-5"
+        onSubmit={handleSubmit}
+      >
         <>
           <label htmlFor="title">Title</label>
           <input
+            className="mt-1 mb-2 w-full px-4 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             type="text"
             id="title"
             name="title"
@@ -67,6 +71,7 @@ const NewTaskForm = () => {
         <>
           <label htmlFor="description">Description</label>
           <textarea
+            className="mt-1 mb-2 w-full px-4 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             type="text"
             id="description"
             name="description"
@@ -79,6 +84,7 @@ const NewTaskForm = () => {
         <>
           <label htmlFor="priority">Priority</label>
           <select
+            className="mt-1 mb-2 w-full px-4 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             id="priority"
             name="priority"
             value={formData.priority}
@@ -94,6 +100,7 @@ const NewTaskForm = () => {
         <>
           <label htmlFor="dueDate">Due Date</label>
           <input
+            className="mt-1 mb-2 w-full px-4 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             type="date"
             id="dueDate"
             name="dueDate"
@@ -105,6 +112,7 @@ const NewTaskForm = () => {
         <>
           <label htmlFor="assignee">Assign To</label>
           <select
+            className="mt-1 mb-2 w-full px-4 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             id="assignee"
             name="assignee"
             value={formData.assignee}
@@ -119,12 +127,21 @@ const NewTaskForm = () => {
             <option value="Samantha Brown">Samantha Brown</option>
           </select>
         </>
-        <input type="submit" value="Save" />
-        <input
-          type="button"
-          value="Cancel"
-          onClick={() => setTaskDialogOpen(false)}
-        />
+        <div className="flex justify-center mt-3">
+          <button
+            className="bg-gray-500 hover:bg-gray-400 text-white text-sm px-4 py-2 mt-2 rounded-sm cursor-pointer font-medium mr-1"
+            type="button"
+            onClick={() => setTaskDialogOpen(false)}
+          >
+            Cancel
+          </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-400 text-white text-sm px-4 py-2 mt-2 rounded-sm cursor-pointer font-medium ml-1"
+            type="submit"
+          >
+            Save
+          </button>
+        </div>
       </form>
     </div>
   );
