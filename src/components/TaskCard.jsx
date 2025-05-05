@@ -29,7 +29,7 @@ const TaskCard = ({ task }) => {
 
   const handleMoveLeftTask = (task) => {
     dispatch({
-      type: "task_edited",
+      type: "task_moved",
       task: {
         ...task,
         status: task.status === "In Progress" ? "To Do" : "In Progress",
@@ -39,7 +39,7 @@ const TaskCard = ({ task }) => {
 
   const handleMoveRightTask = (task) => {
     dispatch({
-      type: "task_edited",
+      type: "task_moved",
       task: {
         ...task,
         status: task.status === "In Progress" ? "Done" : "In Progress",
