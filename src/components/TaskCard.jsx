@@ -6,8 +6,6 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/solid";
 
-import "./TaskCard.css";
-
 const priorityColors = {
   high: "#ff6b6b",
   medium: "#ffd166",
@@ -49,16 +47,16 @@ const TaskCard = ({ task }) => {
 
   return (
     <div className="bg-white shadow-lg p-4 my-2 w-full">
-      <div className="task-card-actions-container mb-4">
+      <div className="mb-4 flex justify-between">
         <div>
           <button
-            className="bg-blue-500 hover:bg-blue-400 text-white text-sm px-2 py-2 rounded-md cursor-pointer font-medium mr-1"
+            className="bg-blue-400 hover:bg-blue-300 text-white text-sm px-2 py-2 rounded-md cursor-pointer font-medium mr-1"
             onClick={() => openEditTaskDialog(task.id)}
           >
             <PencilSquareIcon className="size-5 text-white" />
           </button>
           <button
-            className="bg-blue-500 hover:bg-blue-400 text-white text-sm px-2 py-2 rounded-md cursor-pointer font-medium ml-1"
+            className="bg-blue-400 hover:bg-blue-300 text-white text-sm px-2 py-2 rounded-md cursor-pointer font-medium ml-1"
             onClick={() =>
               dispatch({
                 type: "task_deleted",
@@ -71,14 +69,22 @@ const TaskCard = ({ task }) => {
         </div>
         <div>
           <button
-            className="bg-blue-500 hover:bg-blue-400 text-white text-sm px-1 py-1 rounded-md cursor-pointer font-medium mr-1"
+            className={`text-white text-sm px-1 py-1 rounded-md font-medium ml-1 ${
+              task.status !== "To Do"
+                ? "bg-blue-400 hover:bg-blue-300 cursor-pointer"
+                : "bg-blue-300"
+            }`}
             onClick={() => handleMoveLeftTask(task)}
             disabled={task.status === "To Do"}
           >
             <ChevronLeftIcon className="size-6 text-white" />
           </button>
           <button
-            className="bg-blue-500 hover:bg-blue-400 text-white text-sm px-1 py-1 rounded-md cursor-pointer font-medium ml-1"
+            className={`text-white text-sm px-1 py-1 rounded-md font-medium ml-1 ${
+              task.status !== "Done"
+                ? "bg-blue-400 hover:bg-blue-300 cursor-pointer"
+                : "bg-blue-300"
+            }`}
             onClick={() => handleMoveRightTask(task)}
             disabled={task.status === "Done"}
           >
@@ -86,7 +92,7 @@ const TaskCard = ({ task }) => {
           </button>
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-4">
         <h3 className="self-center text-lg font-semibold">{task.title}</h3>
         <p>{task.description}</p>
         <span

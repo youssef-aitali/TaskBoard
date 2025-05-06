@@ -1,12 +1,11 @@
 import TaskCard from "./TaskCard";
 import { useTasks } from "../Contexts/TasksContext";
-import "./TasksBoard.css";
 
 const TasksBoard = ({ status }) => {
   const { tasksList, setTaskDialogOpen } = useTasks();
 
   return (
-    <div className="tasks-board-container px-5 py-4 mx-4 mt-6 w-1/3 min-w-1/3">
+    <div className="flex flex-col flex-shrink-0 items-center bg-blue-200 px-5 py-5 mt-6 w-120">
       <div className="text-xl font-semibold mb-2">{status}</div>
       {tasksList
         .filter((t) => t.status === status)
