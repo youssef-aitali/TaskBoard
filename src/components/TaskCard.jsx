@@ -13,12 +13,12 @@ const priorityColors = {
   default: "#cccccc",
 };
 
-const getPriorityColor = (priority) => {
-  return priorityColors[priority.toLowerCase()] || priorityColors.default;
-};
-
 const TaskCard = ({ task }) => {
   const { setTaskToEditId, dispatch, setTaskDialogOpen } = useTasks();
+
+  const getPriorityColor = (priority) => {
+    return priorityColors[priority.toLowerCase()] || priorityColors.default;
+  };
 
   const openEditTaskDialog = (taskId) => {
     setTaskToEditId(taskId);
@@ -92,8 +92,8 @@ const TaskCard = ({ task }) => {
           </button>
         </div>
       </div>
-      <div className="flex flex-col gap-4">
-        <h3 className="self-center text-lg font-semibold">{task.title}</h3>
+      <div className="flex flex-col gap-3">
+        <div className="self-center text-lg font-semibold">{task.title}</div>
         <p>{task.description}</p>
         <span
           className="self-start"

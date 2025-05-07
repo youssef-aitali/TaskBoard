@@ -1,5 +1,5 @@
-import TaskCard from "./TaskCard";
 import { useTasks } from "../Contexts/TasksContext";
+import TaskCard from "./TaskCard";
 
 const TasksBoard = ({ status }) => {
   const { tasksList, setTaskDialogOpen } = useTasks();

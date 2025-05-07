@@ -1,7 +1,5 @@
 import { TasksProvider } from "./Contexts/TasksContext";
-import TaskBoardsPage from "./components/TaskBoardsPage";
-
-import "./App.css";
+import TaskBoardsPage from "./Pages/TaskBoardsPage";
 
 function App() {
   return (

@@ -1,8 +1,6 @@
-import { createContext, useReducer, useState } from "react";
-
+import { createContext, useReducer, useState, useContext } from "react";
 import tasksReducer from "../reducers/tasksReducer";
 import { initialTasksList } from "../data/initialTasks";
-import { useContext } from "react";
 
 export const TasksContext = createContext({
   tasksList: [],
